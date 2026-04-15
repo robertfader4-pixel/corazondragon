@@ -378,3 +378,31 @@ img { max-width: 100%; display: block; }
   .hero { padding-top: 24px; }
   .hero-art { min-height: 420px; }
 }
+
+
+.love-note-section{
+  padding-top: 0;
+}
+
+.love-note{
+  text-align: center;
+  background: linear-gradient(180deg, rgba(255,245,252,.95), rgba(245,239,255,.96));
+  border: 1px solid rgba(181, 126, 170, 0.22);
+  box-shadow: 0 18px 40px rgba(144, 116, 155, 0.12);
+  padding: 28px 24px;
+}
+
+.love-note-label{
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9a6b86;
+  margin-bottom: 10px;
+}
+
+.love-note p{
+  margin: 0;
+  font-size: clamp(1.15rem, 2vw, 1.7rem);
+  line-height: 1.6;
+  color: #4f3550;
+}
