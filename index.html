@@ -1,20 +1,203 @@
-
+<!doctype html>
 <html lang="ru">
-<head><meta charset="UTF-8"><title>Сердце дракона</title><link rel="stylesheet" href="style.css"></head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сердце дракона — Роберт Фадер</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  
+</head>
 <body>
-<header><h1>Сердце дракона</h1><p>Роберт Фадер</p></header>
-<div class="container">
-<div class="hero">
-<img src="assets/img/hero.jpg">
-<div class="card"><p>Нежный роман о Наталье, свете и драконе.</p></div>
-</div>
-<nav>
-<a href="chapter-1.html">Глава 1</a>
-<a href="chapter-2.html">Глава 2</a>
-<a href="chapter-3.html">Глава 3</a>
-<a href="chapter-4.html">Глава 4</a>
-</nav>
-</div>
-<footer>Пастельный дизайн</footer>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html">
+        <div class="brand-mark">🐉</div>
+        <div>
+          <strong>Сердце дракона</strong>
+          <span>роман Роберт Фадер</span>
+        </div>
+      </a>
+      <nav class="nav">
+        <a href="index.html#about">О романе</a>
+        <a href="index.html#chapters">Главы</a>
+        <a href="characters.html">Персонажи</a>
+        <a href="test.html">Тест</a>
+      </nav>
+    </div>
+  </header>
+  
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="card hero-copy">
+        <div class="eyebrow">✨ Нежное фэнтези о свете, тайне и сердце</div>
+        <h1>Сердце<br>дракона</h1>
+        <p>
+          Сайт романа создан как мягкое и красивое пространство для чтения: с крупной главной иллюстрацией,
+          отдельными разделами, иллюстрированными главами, страницей персонажей и тестом по уже написанным событиям.
+          В центре истории — Наталья, её взгляд, её внутренний свет и мир, который раскрывается перед ней постепенно.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="chapter-1.html">Начать чтение</a>
+          <a class="button secondary" href="#chapters">Открыть главы</a>
+        </div>
+      </div>
+      <div class="card hero-art">
+        <img src="assets/img/hero-main.jpg" alt="Наталья на фоне неба, замка и дракона">
+        <div class="hero-overlay">
+          Парящий замок, дракон над облаками и Наталья в центре кадра задают основной визуальный ритм сайта:
+          романтичный, сказочный и профессионально собранный.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>О сайте романа</h2>
+          <p>Здесь всё организовано по разделам: главная страница, главы, персонажи и отдельный тест. Цветовая палитра построена на пастельных розовых и небесно-голубых оттенках.</p>
+        </div>
+        <div class="badge">Главы • Персонажи • Тест</div>
+      </div>
+      <div class="feature-grid">
+        <article class="card feature-card">
+          <h3>Иллюстрированные главы</h3>
+          <p>Каждая из четырёх уже написанных глав вынесена на отдельную страницу и оформлена своей крупной иллюстрацией, чтобы чтение было цельным и красивым.</p>
+        </article>
+        <article class="card feature-card">
+          <h3>Главный визуальный образ</h3>
+          <p>Изображения Натальи используются не случайно: одно задаёт тон всей истории, другие раскрывают более тихие и интимные состояния героини.</p>
+        </article>
+        <article class="card feature-card">
+          <h3>Чистая организация</h3>
+          <p>Сайт собран так, чтобы ничего не мешало чтению: аккуратная навигация, отдельные разделы, мягкая типографика и приятные отступы.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Образы Натальи</h2>
+          <p>Иллюстрации распределены так, чтобы показать героиню и в торжественном, и в камерном, и в почти интимном свете.</p>
+        </div>
+      </div>
+      <div class="gallery-grid">
+        <article class="card gallery-main">
+          <img src="assets/img/cover-wall.jpg" alt="Наталья у древней стены">
+        </article>
+        <div class="gallery-column">
+          <article class="card gallery-side">
+            <img src="assets/img/natalia-note-1.jpg" alt="Наталья с мягкой улыбкой">
+          </article>
+          <article class="card gallery-side">
+            <img src="assets/img/natalia-note-2.jpg" alt="Романтический образ Натальи">
+          </article>
+        </div>
+        <div class="gallery-column">
+          <article class="card mini-card">
+            <p><strong>Наталья как образ романа.</strong> Внешняя красота в иллюстрациях всегда сочетается с внутренним движением сюжета: тревогой, светом, тишиной и мягким узнаванием.</p>
+          </article>
+          <article class="card gallery-side">
+            <img src="assets/img/hall-light.jpg" alt="Наталья в тёплом зале">
+          </article>
+        </div>
+      </div>
+      <div class="section-note">
+        Все изображения встроены в структуру сайта так, чтобы не перегружать страницу, а поддерживать настроение романа.
+      </div>
+    </div>
+  </section>
+
+  <section id="chapters" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Главы</h2>
+          <p>Ниже — все уже написанные главы, каждая со своей страницей, кратким вступлением и иллюстрацией.</p>
+        </div>
+      </div>
+      <div class="chapter-grid">
+        
+        <article class="card chapter-card">
+          <a class="chapter-thumb" href="chapter-1.html"><img src="assets/img/cover-wall.jpg" alt="Глава 1"></a>
+          <div class="meta">
+            <small>Глава 1</small>
+            <h3><a href="chapter-1.html">Дизайн</a></h3>
+            <p>Наталья верит в труд, форму и точность — до тех пор, пока один рисунок не начинает дышать собственной жизнью.</p>
+            <div class="actions">
+              <a class="button secondary" href="chapter-1.html">Читать главу</a>
+            </div>
+          </div>
+        </article>
+        
+        <article class="card chapter-card">
+          <a class="chapter-thumb" href="chapter-2.html"><img src="assets/img/hero-main.jpg" alt="Глава 2"></a>
+          <div class="meta">
+            <small>Глава 2</small>
+            <h3><a href="chapter-2.html">Голос в ночи</a></h3>
+            <p>В ночной тишине сердце раскрывается, дракон произносит её имя, а за окном вместо города оказывается небо и парящий замок.</p>
+            <div class="actions">
+              <a class="button secondary" href="chapter-2.html">Читать главу</a>
+            </div>
+          </div>
+        </article>
+        
+        <article class="card chapter-card">
+          <a class="chapter-thumb" href="chapter-3.html"><img src="assets/img/hall-light.jpg" alt="Глава 3"></a>
+          <div class="meta">
+            <small>Глава 3</small>
+            <h3><a href="chapter-3.html">Те, кто ждали</a></h3>
+            <p>В зале замка её встречают шесть фигур и впервые звучат слова о пророчестве, сердце дракона и женщине, которую ждали.</p>
+            <div class="actions">
+              <a class="button secondary" href="chapter-3.html">Читать главу</a>
+            </div>
+          </div>
+        </article>
+        
+        <article class="card chapter-card">
+          <a class="chapter-thumb" href="chapter-4.html"><img src="assets/img/hall-light.jpg" alt="Глава 4"></a>
+          <div class="meta">
+            <small>Глава 4</small>
+            <h3><a href="chapter-4.html">Тепло света</a></h3>
+            <p>После страха приходит не ужас, а свет: чаша покоя, тепло маленького дракона и странное чувство узнавания.</p>
+            <div class="actions">
+              <a class="button secondary" href="chapter-4.html">Читать главу</a>
+            </div>
+          </div>
+        </article>
+        
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container quote-row">
+      <article class="card quote-card">
+        <blockquote>«И в этой тишине, в этом мягком свете и тепле маленького дракона рядом… ей стало спокойно.»</blockquote>
+        <cite>Глава 4 — «Тепло света»</cite>
+      </article>
+      <article class="card cta-card">
+        <h3 style="margin-top:0">Дополнительные разделы</h3>
+        <p style="line-height:1.85;color:#5e4f6b">Чтобы сайт был законченным и удобным, я вынес отдельно страницу персонажей и страницу с небольшим тестом по первым четырём главам.</p>
+        <div class="actions">
+          <a class="button primary" href="characters.html">Персонажи</a>
+          <a class="button secondary" href="test.html">Пройти тест</a>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="card">«Сердце дракона» • русская версия сайта • пастельный розово-небесный дизайн • 4 оформленные главы</div>
+    </div>
+  </footer>
+  
 </body>
 </html>
