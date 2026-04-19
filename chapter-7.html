@@ -27,7 +27,7 @@
 <main class="chapter-page">
   <div class="container">
     <section class="chapter-hero">
-      <article class="card chapter-cover"><img src="assets/img/chapter7-training.png" alt="Иллюстрация к главе 7"></article>
+      <article class="card chapter-cover"><img src="assets/img/chapter7-training.jpg" alt="Иллюстрация к главе 7"></article>
       <article class="card chapter-meta-box">
         <div class="eyebrow">Глава 7</div>
         <h1>Тепло</h1>
@@ -39,7 +39,7 @@
       </article>
     </section>
     <article class="card chapter-body">
-      <figure class="chapter-figure"><img src="assets/img/chapter7-training.png" alt="Иллюстрация к главе 7"><figcaption>Близость возникает не в признаниях, а в движениях, прикосновениях и бережной осторожности.</figcaption></figure>
+      <figure class="chapter-figure"><img src="assets/img/chapter7-training.jpg" alt="Иллюстрация к главе 7"><figcaption>Близость возникает не в признаниях, а в движениях, прикосновениях и бережной осторожности.</figcaption></figure>
       <p>В замке начали возникать привычки. Странные, почти невидимые, но такие настоящие, что Наталья однажды поймала себя на мысли: она уже знает, где встретит Роберта утром, если день будет ясным, и где он задержится вечером, если внутри у него слишком много невыраженных мыслей.</p>
 <p>Он тоже начал узнавать её ритм.</p>
 <p>Однажды утром он нашёл её на широкой лестнице, где свет падал сверху через цветное стекло.</p>
@@ -97,29 +97,33 @@
 <footer class="footer"><div class="container"><div class="card">Готовая версия сайта романа «Сердце дракона» • 10 глав • все иллюстрации интегрированы • сайт готов к загрузке.</div></div></footer>
 
 
-<div id="music-player" class="immersive-player hidden">
-  <div class="player-left">
-    <button id="play-btn" aria-label="play">▶</button>
-    <div class="track-meta">
-      <span id="track-name">—</span>
-      <small id="chapter-theme">Режим чтения</small>
+<div id="simple-player" class="simple-player hidden">
+  <div id="simple-player-header" class="simple-player-header">
+    <div class="simple-player-title">Саундтрек романа</div>
+    <div class="simple-player-actions">
+      <button id="player-minimize" aria-label="minimize">—</button>
+      <button id="player-close" aria-label="close">×</button>
     </div>
   </div>
-
-  <input type="range" id="progress" value="0" min="0" max="100">
-
-  <button class="minimized-player-toggle" id="minimized-player-toggle" aria-label="toggle player">—</button>
-
-  <div class="player-right">
-    <button id="prev-btn" aria-label="prev">⏮</button>
-    <button id="next-btn" aria-label="next">⏭</button>
+  <div class="simple-player-body">
+    <div class="simple-player-track">
+      <strong id="player-track-name">—</strong>
+      <span id="player-theme-name">Режим чтения</span>
+    </div>
+    <div class="simple-player-controls">
+      <button id="player-prev" aria-label="prev">⏮</button>
+      <button id="player-play" aria-label="play">▶</button>
+      <button id="player-next" aria-label="next">⏭</button>
+    </div>
+    <input type="range" id="player-progress" class="simple-player-progress" min="0" max="100" value="0">
+    <div id="player-playlist" class="simple-player-playlist"></div>
   </div>
-
   <audio id="audio"></audio>
 </div>
+<button id="player-launcher" class="player-launcher" aria-label="open player"></button>
 <script src="assets/js/player.js"></script>
 
 
-<button class="heart-player-button" id="heart-player"></button>
+
 </body>
 </html>

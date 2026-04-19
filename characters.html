@@ -34,7 +34,7 @@
       <div class="badge">Ключевые фигуры</div>
     </div>
     <div class="feature-layout">
-      <article class="card feature-poster"><img src="assets/img/chapter9-portrait.png" alt="Наталья и Роберт"></article>
+      <article class="card feature-poster"><img src="assets/img/chapter9-portrait.jpg" alt="Наталья и Роберт"></article>
       <article class="card feature-card">
         <h3>Главная ось истории</h3>
         <p>В центре романа — не просто замок, дракон и преследование, а сложное эмоциональное смещение: Наталья учится не бояться собственного пути, а Роберт — не жить по чужому приказу, если сердце говорит иначе.</p>
@@ -50,29 +50,33 @@
 <footer class="footer"><div class="container"><div class="card">Готовая версия сайта романа «Сердце дракона» • 10 глав • все иллюстрации интегрированы • сайт готов к загрузке.</div></div></footer>
 
 
-<div id="music-player" class="immersive-player hidden">
-  <div class="player-left">
-    <button id="play-btn" aria-label="play">▶</button>
-    <div class="track-meta">
-      <span id="track-name">—</span>
-      <small id="chapter-theme">Режим чтения</small>
+<div id="simple-player" class="simple-player hidden">
+  <div id="simple-player-header" class="simple-player-header">
+    <div class="simple-player-title">Саундтрек романа</div>
+    <div class="simple-player-actions">
+      <button id="player-minimize" aria-label="minimize">—</button>
+      <button id="player-close" aria-label="close">×</button>
     </div>
   </div>
-
-  <input type="range" id="progress" value="0" min="0" max="100">
-
-  <button class="minimized-player-toggle" id="minimized-player-toggle" aria-label="toggle player">—</button>
-
-  <div class="player-right">
-    <button id="prev-btn" aria-label="prev">⏮</button>
-    <button id="next-btn" aria-label="next">⏭</button>
+  <div class="simple-player-body">
+    <div class="simple-player-track">
+      <strong id="player-track-name">—</strong>
+      <span id="player-theme-name">Режим чтения</span>
+    </div>
+    <div class="simple-player-controls">
+      <button id="player-prev" aria-label="prev">⏮</button>
+      <button id="player-play" aria-label="play">▶</button>
+      <button id="player-next" aria-label="next">⏭</button>
+    </div>
+    <input type="range" id="player-progress" class="simple-player-progress" min="0" max="100" value="0">
+    <div id="player-playlist" class="simple-player-playlist"></div>
   </div>
-
   <audio id="audio"></audio>
 </div>
+<button id="player-launcher" class="player-launcher" aria-label="open player"></button>
 <script src="assets/js/player.js"></script>
 
 
-<button class="heart-player-button" id="heart-player"></button>
+
 </body>
 </html>
