@@ -202,3 +202,203 @@ button{font:inherit}
   .chapter-card{grid-template-columns:1fr}
   .chapter-thumb{max-width:260px}
 }
+
+
+/* Immersive soundtrack player */
+body{padding-bottom:96px}
+.immersive-player{
+  position:fixed;
+  left:16px;
+  right:16px;
+  bottom:16px;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:14px 18px;
+  border-radius:18px;
+  background:rgba(255,244,250,.88);
+  backdrop-filter:blur(14px);
+  box-shadow:0 12px 30px rgba(60,40,80,.18);
+  border:1px solid rgba(255,255,255,.45);
+}
+.immersive-player.theme-night{
+  background:rgba(28,29,56,.88);
+  color:#f3ecff;
+}
+.immersive-player.theme-main{
+  background:rgba(255,244,250,.88);
+  color:#4f3559;
+}
+.immersive-player.theme-light{
+  background:rgba(244,249,255,.9);
+  color:#3f4664;
+}
+.immersive-player.theme-drama{
+  background:rgba(48,26,42,.9);
+  color:#fff1f8;
+}
+.player-left,.player-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.track-meta{
+  display:flex;
+  flex-direction:column;
+  line-height:1.2;
+  min-width:140px;
+}
+#track-name{
+  font-weight:700;
+  font-size:14px;
+}
+#chapter-theme{
+  font-size:11px;
+  opacity:.8;
+}
+#progress{
+  flex:1;
+}
+.immersive-player button{
+  border:none;
+  background:transparent;
+  font-size:18px;
+  cursor:pointer;
+  color:inherit;
+}
+@media (max-width:720px){
+  body{padding-bottom:120px}
+  .immersive-player{
+    left:10px;
+    right:10px;
+    bottom:10px;
+    padding:12px 14px;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .track-meta{min-width:auto}
+  #progress{order:3;width:100%;flex-basis:100%}
+}
+
+
+/* Minimized immersive player */
+body{padding-bottom:84px}
+.immersive-player{
+  left:auto;
+  right:16px;
+  bottom:16px;
+  width:min(420px, calc(100vw - 24px));
+  max-width:420px;
+  justify-content:space-between;
+  transition:transform .25s ease, opacity .25s ease, box-shadow .25s ease, width .25s ease, padding .25s ease;
+}
+.immersive-player .player-left{min-width:0; flex:1}
+.immersive-player .track-meta{min-width:0}
+.immersive-player #track-name{
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:170px;
+}
+.immersive-player .minimized-player-toggle{
+  width:34px;
+  height:34px;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.24);
+  border:1px solid rgba(255,255,255,.22);
+  font-size:16px;
+}
+.immersive-player.is-minimized{
+  width:auto;
+  max-width:none;
+  padding:10px 12px;
+  gap:10px;
+}
+.immersive-player.is-minimized #progress,
+.immersive-player.is-minimized .player-right,
+.immersive-player.is-minimized #chapter-theme{
+  display:none;
+}
+.immersive-player.is-minimized #track-name{
+  max-width:110px;
+  font-size:13px;
+}
+.immersive-player.is-minimized .player-left{
+  gap:8px;
+}
+.immersive-player.is-minimized .track-meta{
+  display:block;
+}
+@media (min-width: 980px){
+  .immersive-player.is-minimized{
+    width:auto;
+  }
+}
+@media (max-width:720px){
+  body{padding-bottom:70px}
+  .immersive-player{
+    left:auto;
+    right:10px;
+    bottom:10px;
+    width:min(300px, calc(100vw - 20px));
+    max-width:300px;
+    flex-wrap:nowrap;
+    padding:10px 12px;
+    gap:8px;
+  }
+  .immersive-player #track-name{
+    max-width:96px;
+  }
+  .immersive-player:not(.is-minimized) #progress{
+    max-width:90px;
+  }
+  .immersive-player .minimized-player-toggle{
+    width:30px;
+    height:30px;
+    font-size:14px;
+  }
+  .immersive-player.is-minimized{
+    width:auto;
+    max-width:none;
+  }
+}
+
+
+/* Heart minimized player */
+.heart-player-button{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  width:72px;
+  height:72px;
+  background:url('../img/player-heart.png') center/cover no-repeat;
+  border:none;
+  cursor:pointer;
+  z-index:10000;
+  animation:heartbeat 2.5s infinite;
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
+  border-radius:50%;
+}
+@keyframes heartbeat{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.08)}
+}
+
+.immersive-player.hidden{
+  transform:scale(0.95);
+  opacity:0;
+  pointer-events:none;
+}
+
+@media (max-width:720px){
+  .heart-player-button{
+    width:60px;
+    height:60px;
+    right:12px;
+    bottom:12px;
+  }
+}
