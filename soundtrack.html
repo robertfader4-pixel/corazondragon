@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Саундтрек — Сердце дракона</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-track="0" data-theme="main">
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a class="brand" href="index.html">
+      <div class="brand-mark">🐉</div>
+      <div><strong>Сердце дракона</strong><span>роман Роберт Фадер</span></div>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Главная</a>
+      <a href="index.html#chapters">Главы</a>
+      <a href="characters.html">Персонажи</a>
+      <a href="test.html">Тест</a>
+      <a href="soundtrack.html">Саундтрек</a>
+    </nav>
+  </div>
+</header>
+
+<main class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>Саундтрек романа</h2>
+        <p>Плеер закреплён внизу экрана и не прерывается при переходе между страницами. Для полной работы поместите mp3-файлы в папку <strong>assets/audio/</strong>.</p>
+      </div>
+      <div class="badge">Иммерсивный режим</div>
+    </div>
+
+    <div class="grid-3">
+      <article class="card info-card">
+        <h3>Треки по сценам</h3>
+        <p>Каждой главе назначена своя музыкальная тема: пробуждение, ночной мир, свет замка, тема Роберта и драматическая линия охотников.</p>
+      </article>
+      <article class="card info-card">
+        <h3>Музыка между страницами</h3>
+        <p>Плеер сохраняет текущий трек, время воспроизведения и состояние play/пауза. Можно переходить между главами без обрыва атмосферы.</p>
+      </article>
+      <article class="card info-card">
+        <h3>Что добавить вручную</h3>
+        <p>Просто вставьте ваши mp3 в папку <strong>assets/audio/</strong> под именами track1.mp3 ... track5.mp3 или измените список треков в <strong>assets/js/player.js</strong>.</p>
+      </article>
+    </div>
+  </div>
+</main>
+
+<div id="music-player" class="immersive-player hidden">
+  <div class="player-left">
+    <button id="play-btn" aria-label="play">▶</button>
+    <div class="track-meta">
+      <span id="track-name">—</span>
+      <small id="chapter-theme">Режим чтения</small>
+    </div>
+  </div>
+  <input type="range" id="progress" value="0" min="0" max="100">
+  <button class="minimized-player-toggle" id="minimized-player-toggle" aria-label="toggle player">—</button>
+
+  <div class="player-right">
+    <button id="prev-btn" aria-label="prev">⏮</button>
+    <button id="next-btn" aria-label="next">⏭</button>
+  </div>
+  <audio id="audio"></audio>
+</div>
+<script src="assets/js/player.js"></script>
+
+<button class="heart-player-button" id="heart-player"></button>
+</body>
+</html>

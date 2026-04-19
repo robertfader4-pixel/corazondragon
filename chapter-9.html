@@ -6,7 +6,7 @@
 <title>Сердце дракона — Глава 9: Выбор</title>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
+<body data-track="4" data-theme="drama">
 <header class="topbar">
   <div class="container topbar-inner">
     <a class="brand" href="index.html">
@@ -19,6 +19,7 @@
       <a href="index.html#chapters">Главы</a>
       <a href="characters.html">Персонажи</a>
       <a href="test.html">Тест</a>
+      <a href="soundtrack.html">Саундтрек</a>
     </nav>
   </div>
 </header>
@@ -96,5 +97,30 @@
 
 <footer class="footer"><div class="container"><div class="card">Готовая версия сайта романа «Сердце дракона» • 10 глав • все иллюстрации интегрированы • сайт готов к загрузке.</div></div></footer>
 
+
+<div id="music-player" class="immersive-player hidden">
+  <div class="player-left">
+    <button id="play-btn" aria-label="play">▶</button>
+    <div class="track-meta">
+      <span id="track-name">—</span>
+      <small id="chapter-theme">Режим чтения</small>
+    </div>
+  </div>
+
+  <input type="range" id="progress" value="0" min="0" max="100">
+
+  <button class="minimized-player-toggle" id="minimized-player-toggle" aria-label="toggle player">—</button>
+
+  <div class="player-right">
+    <button id="prev-btn" aria-label="prev">⏮</button>
+    <button id="next-btn" aria-label="next">⏭</button>
+  </div>
+
+  <audio id="audio"></audio>
+</div>
+<script src="assets/js/player.js"></script>
+
+
+<button class="heart-player-button" id="heart-player"></button>
 </body>
 </html>
