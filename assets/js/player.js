@@ -15,79 +15,56 @@
     drama: "Драматическая сцена"
   };
 
-  var audio = document.getElementById("audio");
-  var playBtn = document.getElementById("play-btn");
-  var prevBtn = document.getElementById("prev-btn");
-  var nextBtn = document.getElementById("next-btn");
-  var progress = document.getElementById("progress");
-  var trackName = document.getElementById("track-name");
-  var chapterTheme = document.getElementById("chapter-theme");
-  var player = document.getElementById("music-player");
-  var heartBtn = document.getElementById("heart-player");
-  var minimizedToggle = document.getElementById("minimized-player-toggle");
+  function $(id){ return document.getElementById(id); }
 
-  if (!audio || !playBtn || !prevBtn || !nextBtn || !progress || !trackName || !chapterTheme || !player) {
+  var player = $("simple-player");
+  var launcher = $("player-launcher");
+  var playerHeader = $("simple-player-header");
+  var minimizeBtn = $("player-minimize");
+  var closeBtn = $("player-close");
+  var playBtn = $("player-play");
+  var prevBtn = $("player-prev");
+  var nextBtn = $("player-next");
+  var progress = $("player-progress");
+  var audio = $("audio");
+  var trackName = $("player-track-name");
+  var themeName = $("player-theme-name");
+  var playlist = $("player-playlist");
+
+  if (!player || !launcher || !audio || !playBtn || !prevBtn || !nextBtn || !progress || !trackName || !themeName || !playlist) {
     return;
   }
 
   var body = document.body || document.getElementsByTagName("body")[0];
-  var pageTrack = 0;
-  var pageTheme = "main";
-
-  if (body && body.getAttribute("data-track")) {
-    pageTrack = parseInt(body.getAttribute("data-track"), 10);
-    if (isNaN(pageTrack)) pageTrack = 0;
-  }
-  if (body && body.getAttribute("data-theme")) {
-    pageTheme = body.getAttribute("data-theme") || "main";
-  }
+  var pageTheme = (body && body.getAttribute("data-theme")) || "main";
+  var pageTrack = parseInt((body && body.getAttribute("data-track")) || "0", 10);
+  if (isNaN(pageTrack)) pageTrack = 0;
 
   var storage = {
     get: function (key, fallback) {
       try {
-        var value = window.localStorage.getItem(key);
+        var value = localStorage.getItem(key);
         return value === null ? fallback : value;
-      } catch (e) {
-        return fallback;
-      }
+      } catch (e) { return fallback; }
     },
     set: function (key, value) {
-      try {
-        window.localStorage.setItem(key, value);
-      } catch (e) {}
+      try { localStorage.setItem(key, value); } catch (e) {}
     }
   };
 
-  var currentTrack = parseInt(storage.get("immersiveTrack", String(pageTrack)), 10);
-  if (isNaN(currentTrack) || currentTrack < 0 || currentTrack >= tracks.length) {
-    currentTrack = pageTrack;
-  }
-
-  var savedTime = parseFloat(storage.get("immersiveTime", "0"));
+  var currentTrack = parseInt(storage.get("simpleTrack", String(pageTrack)), 10);
+  if (isNaN(currentTrack) || currentTrack < 0 || currentTrack >= tracks.length) currentTrack = pageTrack;
+  var savedTime = parseFloat(storage.get("simpleTime", "0"));
   if (isNaN(savedTime) || savedTime < 0) savedTime = 0;
-
-  var isPlaying = storage.get("immersivePlaying", "false") === "true";
-  var isMinimized = storage.get("immersiveMinimized", "true") === "true";
-  var previousTrack = parseInt(storage.get("immersiveTrack", String(pageTrack)), 10);
-  if (isNaN(previousTrack)) previousTrack = pageTrack;
+  var isPlaying = storage.get("simplePlaying", "false") === "true";
+  var isMinimized = storage.get("simpleMinimized", "false") === "true";
+  var wasOpen = storage.get("simpleOpen", "false") === "true";
+  var previousTrack = parseInt(storage.get("simpleTrack", String(pageTrack)), 10);
   var trackChangedByPage = previousTrack !== pageTrack;
 
-  function addClass(el, name) {
-    if (!el) return;
-    if (el.classList) el.classList.add(name);
-    else if ((" " + el.className + " ").indexOf(" " + name + " ") < 0) el.className += " " + name;
-  }
-
-  function removeClass(el, name) {
-    if (!el) return;
-    if (el.classList) el.classList.remove(name);
-    else el.className = (" " + el.className + " ").replace(" " + name + " ", " ").trim();
-  }
-
-  function toggleClass(el, name, state) {
-    if (state) addClass(el, name);
-    else removeClass(el, name);
-  }
+  function addClass(el, name){ if (el.classList) el.classList.add(name); else if ((" " + el.className + " ").indexOf(" " + name + " ") < 0) el.className += " " + name; }
+  function removeClass(el, name){ if (el.classList) el.classList.remove(name); else el.className = (" " + el.className + " ").replace(" " + name + " ", " ").trim(); }
+  function hasClass(el, name){ return el.classList ? el.classList.contains(name) : ((" " + el.className + " ").indexOf(" " + name + " ") >= 0); }
 
   function applyTheme(theme) {
     removeClass(player, "theme-main");
@@ -95,7 +72,25 @@
     removeClass(player, "theme-light");
     removeClass(player, "theme-drama");
     addClass(player, "theme-" + theme);
-    chapterTheme.textContent = themeLabels[theme] || "Режим чтения";
+    themeName.textContent = themeLabels[theme] || "Режим чтения";
+  }
+
+  function renderPlaylist() {
+    playlist.innerHTML = "";
+    for (var i = 0; i < tracks.length; i++) {
+      (function(index){
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = tracks[index].name;
+        if (index === currentTrack) addClass(btn, "active");
+        btn.addEventListener("click", function () {
+          loadTrack(index, true);
+          renderPlaylist();
+          safePlay();
+        });
+        playlist.appendChild(btn);
+      })(i);
+    }
   }
 
   function loadTrack(index, resetTime) {
@@ -104,10 +99,10 @@
     currentTrack = index;
     audio.src = tracks[index].src;
     trackName.textContent = tracks[index].name;
-    storage.set("immersiveTrack", String(index));
+    storage.set("simpleTrack", String(index));
     if (resetTime) {
       try { audio.currentTime = 0; } catch (e) {}
-      storage.set("immersiveTime", "0");
+      storage.set("simpleTime", "0");
     }
   }
 
@@ -118,74 +113,76 @@
       if (result && typeof result.then === "function") {
         result.then(function () {
           playBtn.textContent = "⏸";
-          storage.set("immersivePlaying", "true");
+          storage.set("simplePlaying", "true");
         })["catch"](function () {
           playBtn.textContent = "▶";
-          storage.set("immersivePlaying", "false");
+          storage.set("simplePlaying", "false");
         });
       } else {
         playBtn.textContent = "⏸";
-        storage.set("immersivePlaying", "true");
+        storage.set("simplePlaying", "true");
       }
     } catch (e) {
       playBtn.textContent = "▶";
-      storage.set("immersivePlaying", "false");
+      storage.set("simplePlaying", "false");
     }
   }
 
   function safePause() {
     try { audio.pause(); } catch (e) {}
     playBtn.textContent = "▶";
-    storage.set("immersivePlaying", "false");
+    storage.set("simplePlaying", "false");
   }
 
   function openPlayer() {
     removeClass(player, "hidden");
-    if (heartBtn) heartBtn.style.display = "none";
-  }
-
-  function closePlayerToHeart() {
-    addClass(player, "hidden");
-    if (heartBtn) heartBtn.style.display = "block";
-  }
-
-  function applyMinimizedState() {
-    toggleClass(player, "is-minimized", isMinimized);
-    if (minimizedToggle) {
-      minimizedToggle.textContent = isMinimized ? "＋" : "—";
-      minimizedToggle.setAttribute("aria-label", isMinimized ? "expand player" : "minimize player");
+    launcher.style.display = "none";
+    storage.set("simpleOpen", "true");
+    if (window.innerWidth <= 820) {
+      player.style.left = "auto";
+      player.style.top = "auto";
+      player.style.right = "10px";
+      player.style.bottom = "78px";
     }
+  }
+
+  function closePlayer() {
+    addClass(player, "hidden");
+    launcher.style.display = "block";
+    storage.set("simpleOpen", "false");
+  }
+
+  function applyMinimized() {
+    if (isMinimized) addClass(player, "minimized");
+    else removeClass(player, "minimized");
   }
 
   applyTheme(pageTheme);
   loadTrack(pageTrack, trackChangedByPage);
-
   if (!trackChangedByPage) {
     try { audio.currentTime = savedTime; } catch (e) {}
   }
+  renderPlaylist();
+  applyMinimized();
 
-  applyMinimizedState();
-  closePlayerToHeart();
+  if (wasOpen) openPlayer();
+  else closePlayer();
 
-  if (heartBtn) {
-    heartBtn.addEventListener("click", function () {
-      openPlayer();
-      isMinimized = false;
-      storage.set("immersiveMinimized", "false");
-      applyMinimizedState();
+  launcher.addEventListener("click", function () {
+    openPlayer();
+  });
+
+  if (minimizeBtn) {
+    minimizeBtn.addEventListener("click", function () {
+      isMinimized = !isMinimized;
+      storage.set("simpleMinimized", isMinimized ? "true" : "false");
+      applyMinimized();
     });
   }
 
-  if (minimizedToggle) {
-    minimizedToggle.addEventListener("click", function () {
-      isMinimized = !isMinimized;
-      storage.set("immersiveMinimized", isMinimized ? "true" : "false");
-      applyMinimizedState();
-      if (isMinimized) {
-        closePlayerToHeart();
-      } else {
-        openPlayer();
-      }
+  if (closeBtn) {
+    closeBtn.addEventListener("click", function () {
+      closePlayer();
     });
   }
 
@@ -198,7 +195,7 @@
     var next = currentTrack + 1;
     if (next >= tracks.length) next = 0;
     loadTrack(next, true);
-    openPlayer();
+    renderPlaylist();
     safePlay();
   });
 
@@ -206,34 +203,96 @@
     var prev = currentTrack - 1;
     if (prev < 0) prev = tracks.length - 1;
     loadTrack(prev, true);
-    openPlayer();
+    renderPlaylist();
     safePlay();
-  });
-
-  audio.addEventListener("timeupdate", function () {
-    var percent = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
-    progress.value = percent;
-    storage.set("immersiveTime", String(audio.currentTime));
   });
 
   progress.addEventListener("input", function () {
     if (!audio.duration) return;
     try {
       audio.currentTime = (progress.value / 100) * audio.duration;
-      storage.set("immersiveTime", String(audio.currentTime));
+      storage.set("simpleTime", String(audio.currentTime));
     } catch (e) {}
+  });
+
+  audio.addEventListener("timeupdate", function () {
+    var percent = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+    progress.value = percent;
+    storage.set("simpleTime", String(audio.currentTime));
   });
 
   audio.addEventListener("ended", function () {
     var next = currentTrack + 1;
     if (next >= tracks.length) next = 0;
     loadTrack(next, true);
+    renderPlaylist();
     safePlay();
   });
 
-  if (isPlaying) {
-    safePlay();
-  } else {
-    playBtn.textContent = "▶";
+  if (isPlaying) safePlay();
+  else playBtn.textContent = "▶";
+
+  // Drag support: mouse + touch
+  var dragActive = false;
+  var offsetX = 0;
+  var offsetY = 0;
+
+  function getPoint(evt) {
+    if (evt.touches && evt.touches.length) return { x: evt.touches[0].clientX, y: evt.touches[0].clientY };
+    return { x: evt.clientX, y: evt.clientY };
   }
+
+  function startDrag(evt) {
+    if (hasClass(player, "hidden")) return;
+    if (window.innerWidth <= 820) return;
+    var point = getPoint(evt);
+    var rect = player.getBoundingClientRect();
+    dragActive = true;
+    offsetX = point.x - rect.left;
+    offsetY = point.y - rect.top;
+    player.style.left = rect.left + "px";
+    player.style.top = rect.top + "px";
+    player.style.right = "auto";
+    player.style.bottom = "auto";
+    if (evt.preventDefault) evt.preventDefault();
+  }
+
+  function moveDrag(evt) {
+    if (!dragActive) return;
+    if (window.innerWidth <= 820) return;
+    var point = getPoint(evt);
+    var x = point.x - offsetX;
+    var y = point.y - offsetY;
+    var maxX = window.innerWidth - player.offsetWidth - 6;
+    var maxY = window.innerHeight - player.offsetHeight - 6;
+    if (x < 6) x = 6;
+    if (y < 6) y = 6;
+    if (x > maxX) x = maxX;
+    if (y > maxY) y = maxY;
+    player.style.left = x + "px";
+    player.style.top = y + "px";
+  }
+
+  function endDrag() {
+    dragActive = false;
+  }
+
+  if (playerHeader) {
+    playerHeader.addEventListener("mousedown", startDrag);
+    playerHeader.addEventListener("touchstart", startDrag, { passive: false });
+  }
+  document.addEventListener("mousemove", moveDrag);
+  document.addEventListener("touchmove", moveDrag, { passive: false });
+  document.addEventListener("mouseup", endDrag);
+  document.addEventListener("touchend", endDrag);
 })();
+
+
+  window.addEventListener("resize", function () {
+    if (window.innerWidth <= 820) {
+      player.style.left = "auto";
+      player.style.top = "auto";
+      player.style.right = "10px";
+      player.style.bottom = "78px";
+    }
+  });
